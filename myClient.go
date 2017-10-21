@@ -5,11 +5,12 @@ import(
 	"log"
 	"time"
 	"fmt"
+
 	"os/exec"
 )
 func main(){
-	ip := flag.String("ip","127.0.0.1","IP Adress")
-	port := flag.String("port","8890","Port")
+	ip := flag.String("ip","192.168.108.129","IP Adress")
+	port := flag.String("port","8080","Port")
 	flag.Parse()
 	client, err := rpc.DialHTTP("tcp",*ip+":"+*port)
 	if err !=nil{
@@ -22,6 +23,6 @@ func main(){
 		log.Fatal("showTime error:",err)
 	}
 	fmt.Println(displayTime.String()[0:19])
-	cmd := exec.Command("date","-s",time.Unix(0,1).Format(displayTime.String()[0:19]))
+	cmd := exec.Command("echo \"dmyan\" | sudo date ","-s","\""+displayTime.String()[0:19]+"\"")
 	cmd.Run()
 }
