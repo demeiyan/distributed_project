@@ -5,7 +5,6 @@ import(
 	"log"
 	"time"
 	"fmt"
-
 	"os/exec"
 )
 func main(){
@@ -22,7 +21,14 @@ func main(){
 	if err != nil{
 		log.Fatal("showTime error:",err)
 	}
-	fmt.Println(displayTime.String()[0:19])
-	cmd := exec.Command("echo \"dmyan\" | sudo date ","-s","\""+displayTime.String()[0:19]+"\"")
-	cmd.Run()
+	datetime :=displayTime.Format("2006-01-02 15:04:05")
+	//fmt.Println(displayTime.Format("2006-01-02 15:04:05"))
+
+	cmd := exec.Command("date","-s",fmt.Sprintf("%s",datetime))
+	//cmd.Run()
+	out, err := cmd.CombinedOutput()
+	if err != nil{
+		fmt.Println(err)
+	}
+	fmt.Printf(string(out))
 }
