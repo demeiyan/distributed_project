@@ -9,9 +9,11 @@ import (
 	"fmt"
 )
 type DispalyTime int	//定义服务标识
-
-func (c *DispalyTime)ShowTime(arg *int, destTime *time.Time) error {
-	*destTime = time.Now()
+var password string = "root"
+func (c *DispalyTime)ShowTime(key *string, destTime *time.Time) error {
+	if password == *key{
+		*destTime = time.Now()
+	}
 	return nil
 }
 
